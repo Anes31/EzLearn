@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class UserProfile extends AppCompatActivity {
 
-    private String TAG = Login.class.getSimpleName();
+    private String TAG = FacebookLogin.class.getSimpleName();
     Map<Integer, String> favourites = new HashMap<>();
     SessionManager session;
 
