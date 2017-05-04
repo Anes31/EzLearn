@@ -17,7 +17,7 @@ import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class FacebookLogin extends AppCompatActivity {
 
     CallbackManager callbackManager;
     LoginButton loginButton;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         facebookSDKInitialize();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_facebooklogin);
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
         getLoginDetails(loginButton);
@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onCompleted(
                             JSONObject json_object,
                             GraphResponse response) {
-                        Intent intent = new Intent(MainActivity.this, Home.class);
+
+                        Intent intent = new Intent(FacebookLogin.this, Home.class);
                         intent.putExtra("jsondata", json_object.toString());
                         startActivity(intent);
                     }

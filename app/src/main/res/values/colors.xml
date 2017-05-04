@@ -6,4 +6,6 @@
     <color name="texts">#8ac24a</color>
     <color name="fond">#3b3b3b</color>
     <color name="button">#64dc17</color>
+    <color name="Transparent">#00000000</color>
+    <color name="Blue1">#72caf7</color>
 </resources>

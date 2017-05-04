@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class Languages extends AppCompatActivity {
 
-    private String TAG = MainActivity.class.getSimpleName();
+    private String TAG = Login.class.getSimpleName();
     Map<Integer, String> languages = new HashMap<>();
     int i = -1;
     SessionManager session;
@@ -143,7 +143,7 @@ public class Languages extends AppCompatActivity {
             //addFav.setId();
             addFav.setWidth(100);
             addFav.setHeight(100);
-            setOnClickBtn(addFav, languages.get(i - 1));
+            setOnClickBtn(addFav, languages.get(i - 1), languages.get(i));
 
 
             this.setContentView(linearLayout, new LinearLayout.LayoutParams(
@@ -168,23 +168,21 @@ public class Languages extends AppCompatActivity {
         });
     }
 
-    private void setOnClickBtn(final Button btn, final String lang_id) {
+    private void setOnClickBtn(final Button btn, final String lang_id, final String lang_name ) {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 i++;
                 if (v == btn) {
-                    //UserProfile userProfile = new UserProfile();
-                    //userProfile.putMap(i, id);
                     HttpHandlerAddFav sh = new HttpHandlerAddFav();
 
                     // get user data from session
+                    session = new SessionManager(getApplicationContext());
                     HashMap<String, String> user = session.getUserDetails();
                     String user_id = user.get(SessionManager.KEY_ID);
 
-                    //String user_id = SessionManager.KEY_NAME;
-                    Toast.makeText(Languages.this, "user id: " + user_id +  "\nlang id: " + lang_id, Toast.LENGTH_SHORT).show();
-                    //sh.makeServiceCall(lang_id, user_id);
+                    Toast.makeText(Languages.this, lang_name + " has been added to your favourite", Toast.LENGTH_SHORT).show();
+                    sh.makeServiceCall(lang_id, user_id);
                 }
             }
         });

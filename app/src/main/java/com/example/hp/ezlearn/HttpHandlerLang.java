@@ -26,7 +26,7 @@ public class HttpHandlerLang {
     public String makeServiceCall() {
 
         String response = null;
-        String langUrl = "https://databasestudies.000webhostapp.com/languages.php";
+        String langUrl = "https://ez-learndb.000webhostapp.com/languages.php";
 
         try {
             URL url = new URL(langUrl);

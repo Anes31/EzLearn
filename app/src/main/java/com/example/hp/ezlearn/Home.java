@@ -16,11 +16,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +32,7 @@ public class Home extends AppCompatActivity
     TextView user_name, user_email;
     ImageView user_picture;
     NavigationView navigationView;
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class Home extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -132,7 +137,7 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_logout) {
             // Handle the Logout Process
             LoginManager.getInstance().logOut();
-            Intent intent = new Intent(Home.this, MainActivity.class);
+            Intent intent = new Intent(Home.this, FacebookLogin.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 

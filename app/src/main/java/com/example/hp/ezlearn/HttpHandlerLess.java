@@ -26,7 +26,7 @@ public class HttpHandlerLess {
     public String makeServiceCall(String chap_id) {
 
         String response = null;
-        String langUrl = "https://databasestudies.000webhostapp.com/listlessons.php?id=" + chap_id;
+        String langUrl = "https://ez-learndb.000webhostapp.com/listlessons.php?id=" + chap_id;
 
         try {
             URL url = new URL(langUrl);

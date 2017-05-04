@@ -26,7 +26,7 @@ public class HttpHandlerAddFav {
     public String makeServiceCall(String lang_id, String user_id) {
 
         String response = null;
-        String langUrl = "https://databasestudies.000webhostapp.com/addfavourite.php?lang_id=" + lang_id + "&user_id=" + user_id;
+        String langUrl = "https://ez-learndb.000webhostapp.com/addfavourite.php?lang_id=" + lang_id + "&user_id=" + user_id;
 
         try {
             URL url = new URL(langUrl);

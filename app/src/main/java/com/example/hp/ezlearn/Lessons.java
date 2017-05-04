@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class Lessons extends AppCompatActivity {
 
-    private String TAG = MainActivity.class.getSimpleName();
+    private String TAG = FacebookLogin.class.getSimpleName();
     Map<Integer, String> lessons = new HashMap<>();
     public String chap_id;
 

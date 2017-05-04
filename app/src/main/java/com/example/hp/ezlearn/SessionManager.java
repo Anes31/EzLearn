@@ -81,6 +81,10 @@ public class SessionManager {
         return user;
     }
 
+    public String getUserId() {
+        return KEY_ID;
+    }
+
     /**
      * Clear session details
      */
@@ -91,7 +95,7 @@ public class SessionManager {
         IS_LOGIN = "False";
 
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(_context, MainActivity.class);
+        Intent i = new Intent(_context, FacebookLogin.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

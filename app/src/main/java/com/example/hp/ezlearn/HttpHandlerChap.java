@@ -31,7 +31,7 @@ public class HttpHandlerChap {
     public String makeServiceCall(String lang_id) {
 
         String response = null;
-        String langUrl = "https://databasestudies.000webhostapp.com/chapters.php?id=" + lang_id;
+        String langUrl = "https://ez-learndb.000webhostapp.com/chapters.php?id=" + lang_id;
 
         try {
             URL url = new URL(langUrl);

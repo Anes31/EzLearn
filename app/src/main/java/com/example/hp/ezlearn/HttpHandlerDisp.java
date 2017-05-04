@@ -26,7 +26,7 @@ public class HttpHandlerDisp {
     public String makeServiceCall(String lesson_id) {
 
         String response = null;
-        String langUrl = "https://databasestudies.000webhostapp.com/displaylesson.php?id=" + lesson_id;
+        String langUrl = "https://ez-learndb.000webhostapp.com/displaylesson.php?id=" + lesson_id;
 
         try {
             URL url = new URL(langUrl);
