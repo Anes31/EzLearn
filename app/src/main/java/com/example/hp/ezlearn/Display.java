@@ -238,7 +238,7 @@ public class Display extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         commentBtn.setText("Add Comment");
         commentBtn.setTextColor(Color.WHITE);
-        commentBtn.setBackgroundColor(getResources().getColor(R.color.button));
+        commentBtn.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         linearLayout.addView(commentBtn, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         setOnClick1(commentBtn);

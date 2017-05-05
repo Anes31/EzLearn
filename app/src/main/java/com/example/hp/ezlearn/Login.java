@@ -28,7 +28,6 @@ public class Login extends Activity {
     private Button login;
     private Button FBlogin;
     SessionManager session;
-    Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

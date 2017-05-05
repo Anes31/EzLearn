@@ -4,15 +4,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -32,11 +27,12 @@ public class Comment extends AppCompatActivity {
         lesson_id = intent.getStringExtra("lesson_id");
         eText = (EditText) findViewById(R.id.comment);
         btn = (Button) findViewById(R.id.submit);
-        comment = eText.getText().toString();
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new Comment.addComment().execute();
-                //onBackPressed();
+                comment = eText.getText().toString();
+                //Toast.makeText(Comment.this, comment, Toast.LENGTH_SHORT).show();
+                new addComment().execute();
+                onBackPressed();
             }
         });
     }
