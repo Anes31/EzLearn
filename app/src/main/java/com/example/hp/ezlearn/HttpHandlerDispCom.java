@@ -3,40 +3,36 @@ package com.example.hp.ezlearn;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLEncoder;
 
 /**
- * Created by HP on 4/9/2017.
+ * Created by HP on 5/4/2017.
  */
 
-public class HttpHandlerChap {
+public class HttpHandlerDispCom {
 
-    private static final String TAG = HttpHandlerChap.class.getSimpleName();
+    private static final String TAG = HttpHandlerDispCom.class.getSimpleName();
 
-    public HttpHandlerChap() {
+    public HttpHandlerDispCom() {
     }
 
-    public String makeServiceCall(String lang_id) {
+    public String makeServiceCall(String lesson_id) {
 
         String response = null;
-        String langUrl = "https://ez-learndb.000webhostapp.com/chapters.php?id=" + lang_id;
+        String langUrl = "http://ez-learndb.000webhostapp.com/getcomments.php?lesson_id=" + lesson_id;
+
 
         try {
             URL url = new URL(langUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("GET");
             // read the response
             InputStream in = new BufferedInputStream(conn.getInputStream());
             response = convertStreamToString(in);

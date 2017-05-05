@@ -1,5 +1,6 @@
 package com.example.hp.ezlearn;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +28,8 @@ public class Display extends AppCompatActivity {
 
     private String TAG = FacebookLogin.class.getSimpleName();
     Map<Integer, String> lessons = new HashMap<>();
-    public String lesson_id;
+    Map<Integer, String> comments = new HashMap<>();
+    public  String lesson_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +105,59 @@ public class Display extends AppCompatActivity {
                 });
 
             }
+
+            HttpHandlerDispCom sh1 = new HttpHandlerDispCom();
+            String jsonStr1 = sh1.makeServiceCall(lesson_id);
+            Log.e(TAG, "Response from url: " + jsonStr1);
+            if (jsonStr1 != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr1);
+
+                    // Getting JSON Array node
+                    JSONArray results = jsonObj.getJSONArray("comments");
+
+                    int count = 0;      //JSON Array index (2 dimensional array)
+                    int i = 0;          //Hashmap index (Hashmap is 1 dimensional so its size will be JSON array size x 2)
+                    while (count < results.length()) {
+
+                        //Getting the chapters data 1 by 1 and storing it into the Hashmap
+                        JSONObject JO = results.getJSONObject(count);
+                        String username = JO.getString("username");
+                        String comment = JO.getString("comment");
+                        comments.put(i, username);
+                        comments.put(++i, comment);
+                        count++;
+                        i++;
+                    }
+
+                } catch (final JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+
+                }
+
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+
+            }
+
             return null;
         }
 
@@ -176,6 +232,46 @@ public class Display extends AppCompatActivity {
         linearLayout.addView(myButton, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         setOnClick(myButton);
+
+        Button commentBtn = new Button(this);
+        commentBtn.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        commentBtn.setText("Add Comment");
+        commentBtn.setTextColor(Color.WHITE);
+        commentBtn.setBackgroundColor(getResources().getColor(R.color.button));
+        linearLayout.addView(commentBtn, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        setOnClick1(commentBtn);
+
+        TextView txt = new TextView(this);
+        txt.setText("Comments:");
+        txt.setWidth(50);
+        txt.setHeight(50);
+        this.setContentView(linearLayout, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        linearLayout.addView(txt, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        for (int i = 0; i < comments.size(); i = i + 2) {
+
+            TextView username = new TextView(this);
+            username.setText("User: " + comments.get(i));
+            username.setWidth(50);
+            username.setHeight(50);
+            this.setContentView(linearLayout, new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            linearLayout.addView(username, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            TextView comment = new TextView(this);
+            comment.setText("'" + comments.get(i + 1) + "'");
+            comment.setWidth(50);
+            comment.setHeight(50);
+            this.setContentView(linearLayout, new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            linearLayout.addView(comment, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+        }
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -208,6 +304,17 @@ public class Display extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+    }
+
+    private void setOnClick1(Button btn) {
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Comment.class);
+                intent.putExtra("lesson_id", lesson_id);
+                startActivity(intent);
             }
         });
     }
