@@ -26,6 +26,7 @@ public class Languages extends AppCompatActivity {
     Map<Integer, String> languages = new HashMap<>();
     int i = -1;
     SessionManager session;
+    String lang_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,23 +169,47 @@ public class Languages extends AppCompatActivity {
         });
     }
 
-    private void setOnClickBtn(final Button btn, final String lang_id, final String lang_name ) {
+    private void setOnClickBtn(final Button btn, final String lang_id, final String lang_name) {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 i++;
                 if (v == btn) {
-                    HttpHandlerAddFav sh = new HttpHandlerAddFav();
-
-                    // get user data from session
-                    session = new SessionManager(getApplicationContext());
-                    HashMap<String, String> user = session.getUserDetails();
-                    String user_id = user.get(SessionManager.KEY_ID);
+                    lang_ID = lang_id;
+                    //HttpHandlerAddFav sh = new HttpHandlerAddFav();
 
                     Toast.makeText(Languages.this, lang_name + " has been added to your favourite", Toast.LENGTH_SHORT).show();
-                    sh.makeServiceCall(lang_id, user_id);
+                    new addFavourite().execute();
+                    //sh.makeServiceCall(lang_id, user_id);
                 }
             }
         });
     }
+
+    private class addFavourite extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+
+            // get user data from session
+            session = new SessionManager(getApplicationContext());
+            HashMap<String, String> user = session.getUserDetails();
+            String user_id = user.get(SessionManager.KEY_ID);
+            HttpHandlerAddFav sh = new HttpHandlerAddFav();
+            sh.makeServiceCall(lang_ID, user_id);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+    }
+
 }
