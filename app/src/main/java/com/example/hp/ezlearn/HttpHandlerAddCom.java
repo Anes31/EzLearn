@@ -26,7 +26,7 @@ public class HttpHandlerAddCom {
         String comUrl = "https://ez-learndb.000webhostapp.com/addcomments.php?user_id=" + user_id + "&lesson_id=" + lesson_id + "&comment=" + comment + "&username=" + username;
 
         try {
-            URL url = new URL(comUrl);
+            URL url = new URL(comUrl.replace(" ", "%20"));
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             // read the response

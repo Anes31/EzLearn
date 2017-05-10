@@ -30,7 +30,7 @@ public class Comment extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 comment = eText.getText().toString();
-                //Toast.makeText(Comment.this, comment, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Comment.this, comment, Toast.LENGTH_SHORT).show();
                 new addComment().execute();
                 onBackPressed();
             }

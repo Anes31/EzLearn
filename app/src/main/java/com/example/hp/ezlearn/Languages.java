@@ -211,5 +211,4 @@ public class Languages extends AppCompatActivity {
             super.onPostExecute(result);
         }
     }
-
 }
